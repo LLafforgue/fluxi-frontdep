@@ -35,26 +35,30 @@ function LoginInput({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: signEmail, password: signPassword }),
-      }).then((response) => response.json());
+      })
+      console.log('fecth ok')
+      const data = response.json();
 
-      if (response.result) {
+      if (data.result) {
         const userRedux = {
-          id: response.data._id,
-          company: response.data.company,
-          email: response.data.email,
-          firstname: response.data.firstname,
-          lastname: response.data.lastname,
+          id: data.data._id,
+          company: data.data.company,
+          email: data.data.email,
+          firstname: data.data.firstname,
+          lastname: data.data.lastname,
         };
 
         // Stocker le token dans le localStorage
-        localStorage.setItem("token", response.data.token);
-
+        localStorage.setItem("token", data.data.token);
+        console.log('ok1')
         // Mettre à jour l'état de l'utilisateur dans Redux
         dispatch(loginUser(userRedux));
+        console.log('ok redux')
 
         // Rediriger vers le tableau de bord
-        router.push("/dashboard");
+        router.replace("/dashboard");
       } else {
+        console.log('pas ok 1')
         setLoginError("Email ou mot de passe incorrect.");
       }
     } catch (error) {
@@ -180,7 +184,7 @@ function RegisterInput({
           setSignPassword("");
           setSignCompany("");
           setIsLogin(false);
-          router.push("/dashboard");
+          router.replace("/dashboard");
         } else {
           console.error("Erreur lors de l'enregistrement :", data.message);
           setFormErrors({
@@ -309,7 +313,6 @@ function RegisterInput({
 
 function login() {
 
-    const user = useSelector((state)=>state.user.value)
     const dispatch = useDispatch();
     const router = useRouter();
 
