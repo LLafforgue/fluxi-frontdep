@@ -83,9 +83,11 @@ function Orders() {
             return {id:order.id, name:order['Réf']}
           })));
         }
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching orders:', error);
-        setFilteredOrders([{ Erreur: 'Aucune commande trouvée' }]);
+        setLoading(false);
+
       }
       setLoading(false);
     };
