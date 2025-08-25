@@ -8,31 +8,6 @@ import {loginUser, logout} from '../reducers/user'
 import {useRouter} from 'next/router'
 
 
-/*
-FETCH EX : apiFetch('http://localhost:3001/auth/login', {
-  method: 'POST',
-  body: JSON.stringify({......}),
-	)
-
-	Rajoute le headers Authorization avec le token
-	Parse la réponse en JSON
-	Set le content-type en application/json
-	Si le status est 401, logout et redirection vers la page de login
-*/
-
-
-/*
-COMPONENT EX : 
-import Protected from '../utils/withAuth';
-
-function ProtectedComponent() {
-  return <div>Protected Content</div>;
-}
-
-export default Protected(ProtectedComponent);
-*/
-
-// Sub-Components
 
 function LoginInput({
   EMAIL_REGEX,
@@ -59,7 +34,7 @@ function LoginInput({
     }
 
     try {
-      const response = await fetch("http://localhost:3001/auth/login", {
+      const response = await fetch("https://fluxi-backdep.vercel.app/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: signEmail, password: signPassword }),
@@ -187,7 +162,7 @@ function RegisterInput({
       return;
     }
 
-    fetch("http://localhost:3001/auth/register", {
+    fetch("https://fluxi-backdep.vercel.app/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -358,7 +333,7 @@ function login() {
 			const token = localStorage.getItem("token");
 			if (!token) return
 			
-			const res = await fetch("http://localhost:3001/api/check-token", {
+			const res = await fetch("https://fluxi-backdep.vercel.app/api/check-token", {
 			headers: { Authorization: `Bearer ${token}`},});
 
 			// If token is invalid logout

@@ -15,7 +15,7 @@ export default function ClientsMapWrapper() {
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
-        const res = await apiFetch("http://localhost:3001/api/customers")
+        const res = await apiFetch("https://fluxi-backdep.vercel.app/api/customers")
        
         if (res.result) {
           setCustomers(res.data);
@@ -34,4 +34,5 @@ export default function ClientsMapWrapper() {
   );
 }
   
+
 

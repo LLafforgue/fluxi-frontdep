@@ -36,7 +36,7 @@ function editSupplier() {
   useEffect(() => {
     async function fetchTags() {
       try {
-        const response = await apiFetch("http://localhost:3001/api/suppliers/tags")
+        const response = await apiFetch("https://fluxi-backdep.vercel.app/api/suppliers/tags")
 
         if (!response.result) {
           throw new Error("Failed to fetch tags");
@@ -53,7 +53,7 @@ function editSupplier() {
     if (!id) return;
     async function fetchSupplierData() {
 
-      const result = await apiFetch(`http://localhost:3001/api/suppliers/${id}`)
+      const result = await apiFetch(`https://fluxi-backdep.vercel.app/api/suppliers/${id}`)
 
       if (result.data) {
         setName(result.data.name);
@@ -83,7 +83,7 @@ function editSupplier() {
       };
 
       const response = await apiFetch(
-        `http://localhost:3001/api/suppliers/${id}`,
+        `https://fluxi-backdep.vercel.app/api/suppliers/${id}`,
         {
           method: "PUT",
           body: JSON.stringify(updatedSupplier),

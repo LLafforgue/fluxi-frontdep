@@ -66,7 +66,7 @@ function UserMenu({ style, refresh }) {
 useEffect(()=>{
     const getProductAlert = async () =>{
     try{
-    const data = await apiFetch('http://localhost:3001/api/products/alert',{
+    const data = await apiFetch('https://fluxi-backdep.vercel.app/api/products/alert',{
         method: 'GET',
     })
     if(data.result&&typeof(data.data)==='object'){
@@ -91,7 +91,7 @@ useEffect(()=>{
 
     const getOrderAlert = async () =>{
     try{
-    const data = await apiFetch('http://localhost:3001/api/orders/alert',{
+    const data = await apiFetch('https://fluxi-backdep.vercel.app/api/orders/alert',{
         method: 'GET',
     })
     if(data.result&&typeof(data.data)==='object'){

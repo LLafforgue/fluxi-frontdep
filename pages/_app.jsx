@@ -30,32 +30,6 @@ function App({ Component, pageProps }) {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  //  useEffect(() => {
-
-  //     async function checkAuth(){
-  //       // If on /login do nothing
-  //       if (router.pathname == "/login") return;
-
-  //       const token = localStorage.getItem("token");
-        
-  //       // If token is invalid
-  //       if (!token) {
-  //         router.replace("/login");
-  //       }
-
-  //       const res = await fetch("http://localhost:3001/api/check-token", {
-  //         headers: { Authorization: `Bearer ${token}` },
-  //       });
-
-  //       // If token is invalid
-  //       if (res.status == 401) {
-  //         router.replace("/logout");
-  //       }
-  //     }
-
-  //     checkAuth()
-
-  //     }, [router]);
 
   return (
     <Provider store={store}>
