@@ -49,7 +49,7 @@ function Stock() {
       
       setLoading(true);
       try {
-        const data = await apiFetch("https://fluxi-backdep.vercel.app/api/products");
+        const data = await apiFetch("http://localhost:3001/api/products");
 
         if (data.result) {
           const useData = data.data.map((product) => {

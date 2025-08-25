@@ -62,7 +62,7 @@ function newOrder() {
     
     const fetchProductsList = async () => {
       try {
-        const data = await apiFetch("https://fluxi-backdep.vercel.app/api/products?type=2");
+        const data = await apiFetch("http://localhost:3001/api/products?type=2");
 
         if (data.result) {
           setFinalProducts(data.data.map(product => ({
@@ -77,7 +77,7 @@ function newOrder() {
     };
     const fetchClientList = async () => {
       try {
-        const data = await apiFetch("https://fluxi-backdep.vercel.app/api/customers");
+        const data = await apiFetch("http://localhost:3001/api/customers");
 
         if (data.result) {
           setCustumersOptions(data.data.map(client => client.name));
@@ -92,7 +92,7 @@ function newOrder() {
 
 async  function getLastOrderFromClient (client){
    try {
-      const data = await apiFetch(`https://fluxi-backdep.vercel.app/api/orders/last/${client}`);
+      const data = await apiFetch(`http://localhost:3001/api/orders/last/${client}`);
 
       if (!data.result) {
           return console.error("Erreur lors de la récupération des produits:", error);  
@@ -180,7 +180,7 @@ async  function getLastOrderFromClient (client){
       return;
     }
     try {
-      const data = await apiFetch("https://fluxi-backdep.vercel.app/api/orders/create", {
+      const data = await apiFetch("http://localhost:3001/api/orders/create", {
       method: "POST",
       body: JSON.stringify(orderToSend),
     });

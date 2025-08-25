@@ -15,8 +15,9 @@ function Dashboard() {
   useEffect(() => {
     const fetchKpi = async () => {
       try {
-    const data = await apiFetch("https://fluxi-backdep.vercel.app/api/orders/kpi")
+    const data = await apiFetch("http://localhost:3001/api/orders/kpi")
     setKpi(data);
+    console.log(data);
       } catch (err) {
         console.error("Erreur chargement KPI commandes:", err);
       }
@@ -31,7 +32,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchProductions = async () => {
       try {
-        const data = await apiFetch("https://fluxi-backdep.vercel.app/api/productions");
+        const data = await apiFetch("http://localhost:3001/api/productions");
         const productions = data.productions || [];
 
         const grouped = productions.reduce((acc, prod) => {

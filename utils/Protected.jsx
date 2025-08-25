@@ -11,7 +11,7 @@ export default function Protected(Component) {
         async function checkAuth(){
         
             const token = localStorage.getItem("token");
-            const res = await fetch("https://fluxi-backdep.vercel.app/api/check-token", {
+            const res = await fetch("http://localhost:3001/api/check-token", {
             headers: { Authorization: `Bearer ${token}` },
             });
 

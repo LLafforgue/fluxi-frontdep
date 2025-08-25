@@ -34,7 +34,7 @@ function LoginInput({
     }
 
     try {
-      const response = await fetch("https://fluxi-backdep.vercel.app/auth/login", {
+      const response = await fetch("http://localhost:3001/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: signEmail, password: signPassword }),
@@ -162,7 +162,7 @@ function RegisterInput({
       return;
     }
 
-    fetch("https://fluxi-backdep.vercel.app/auth/register", {
+    fetch("http://localhost:3001/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -333,7 +333,7 @@ function login() {
 			const token = localStorage.getItem("token");
 			if (!token) return
 			
-			const res = await fetch("https://fluxi-backdep.vercel.app/api/check-token", {
+			const res = await fetch("http://localhost:3001/api/check-token", {
 			headers: { Authorization: `Bearer ${token}`},});
 
 			// If token is invalid logout

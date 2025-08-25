@@ -364,7 +364,7 @@ function NewProduct() {
 
     async function fetchSuppliers(){
 
-      const response = await apiFetch("https://fluxi-backdep.vercel.app/api/suppliers")
+      const response = await apiFetch("http://localhost:3001/api/suppliers")
 
       if (!response.result) {
         throw new Error("Failed to fetch suppliers");
@@ -375,7 +375,7 @@ function NewProduct() {
     }
 
     async function fetchBrutProducts() {
-      const response = await apiFetch("https://fluxi-backdep.vercel.app/api/products?type=1")
+      const response = await apiFetch("http://localhost:3001/api/products?type=1")
 
       if (!response.result) {
         throw new Error("Failed to fetch brut products");
@@ -465,11 +465,11 @@ function NewProduct() {
     };
     
     try {
-      const response = await apiFetch("https://fluxi-backdep.vercel.app/api/products", {
+      const response = await apiFetch("http://localhost:3001/api/products", {
         method: "POST",
         body: JSON.stringify(newProduct),
       })
-      // const response = await fetch("https://fluxi-backdep.vercel.app/api/products", {
+      // const response = await fetch("http://localhost:3001/api/products", {
       //   headers: {
       //     Authorization: `Bearer ${localStorage.getItem("token")}`,
       //     "content-type": "application/json"

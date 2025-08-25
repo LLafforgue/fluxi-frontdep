@@ -42,7 +42,7 @@ function Production() {
   
   const addProdCalendar = async () => {
     try {
-      const data = await apiFetch("https://fluxi-backdep.vercel.app/api/productions");
+      const data = await apiFetch("http://localhost:3001/api/productions");
 
       if (!data.result) {
         console.error("Erreur fetch productions :", err);
@@ -70,7 +70,7 @@ function Production() {
         return;
       }
 
-      const response = await apiFetch('https://fluxi-backdep.vercel.app/api/productions', {
+      const response = await apiFetch('http://localhost:3001/api/productions', {
         method: "POST",
         body: JSON.stringify({
           product: selectProduct,
@@ -114,7 +114,7 @@ function Production() {
     async function fetchProducts() {
       try {
         const response = await apiFetch(
-          "https://fluxi-backdep.vercel.app/api/products?type=2"
+          "http://localhost:3001/api/products?type=2"
         );
 
         if (!response.result) {
@@ -145,7 +145,7 @@ function Production() {
 
     const fetchProductions = async () => {
       try {
-        const data = await apiFetch("https://fluxi-backdep.vercel.app/api/productions");
+        const data = await apiFetch("http://localhost:3001/api/productions");
 
         // Groupement par mois
         const productions = data.productions || [];

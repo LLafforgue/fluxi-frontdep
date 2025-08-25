@@ -40,7 +40,7 @@ function SupplierDetails() {
     async function fetchSupplier() {
       try {
         if (!id) return;
-        const response = await apiFetch(`https://fluxi-backdep.vercel.app/api/suppliers/${id}`)
+        const response = await apiFetch(`http://localhost:3001/api/suppliers/${id}`)
 
         if (!response || !response.result)
           throw new Error("Failed to fetch supplier");
@@ -54,7 +54,7 @@ function SupplierDetails() {
     async function fetchProducts() {
       try {
         if (!id) return;
-        const response = await apiFetch(`https://fluxi-backdep.vercel.app/api/products?type=1&supplierId=${id}`)
+        const response = await apiFetch(`http://localhost:3001/api/products?type=1&supplierId=${id}`)
         if (!response || !response.result)
           throw new Error("Failed to fetch products");
         setProducts(response.data);

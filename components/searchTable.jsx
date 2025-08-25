@@ -60,7 +60,7 @@ function SearchTable({ items, type, refresh, itemsId, catToCheck, multipleSelect
   
 
         try {
-        const data = await apiFetch(`https://fluxi-backdep.vercel.app/api/products/${routeChange}`, {
+        const data = await apiFetch(`http://localhost:3001/api/products/${routeChange}`, {
             method: 'PUT',
             body: JSON.stringify(dataToSend)
         });
@@ -88,7 +88,7 @@ function SearchTable({ items, type, refresh, itemsId, catToCheck, multipleSelect
       const dataToSend = el;
       
       try {
-        const data = await apiFetch(`https://fluxi-backdep.vercel.app/api/orders/status`, {
+        const data = await apiFetch(`http://localhost:3001/api/orders/status`, {
             method: 'PUT',
             body: JSON.stringify( dataToSend )
         });

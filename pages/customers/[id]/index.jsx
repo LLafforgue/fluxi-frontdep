@@ -83,7 +83,7 @@ function CustomerDetails() {
   }
   const fetchCustomerDetails = (idCustomer) => {
     if (idCustomer) {
-      fetch(`https://fluxi-backdep.vercel.app/api/customers/${idCustomer}`, {
+      fetch(`http://localhost:3001/api/customers/${idCustomer}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then((res) => res.json())
