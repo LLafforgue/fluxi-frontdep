@@ -36,8 +36,8 @@ function LoginInput({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: signEmail, password: signPassword }),
       })
-      console.log('fecth ok')
       const data = response.json();
+      console.log(data)
 
       if (data.result) {
         const userRedux = {
@@ -50,7 +50,7 @@ function LoginInput({
 
         // Stocker le token dans le localStorage
         localStorage.setItem("token", data.data.token);
-        console.log('ok1')
+        console.log(data.data.token)
         // Mettre à jour l'état de l'utilisateur dans Redux
         dispatch(loginUser(userRedux));
         console.log('ok redux')
