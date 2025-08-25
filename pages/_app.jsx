@@ -1,6 +1,6 @@
 import "../styles/globals.css";
 import Head from "next/head";
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { useRouter } from "next/router";
 import { Provider } from "react-redux";
 import user from "../reducers/user";

@@ -1,10 +1,7 @@
-import Head from 'next/head';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
-import {loginUser, logout} from '../reducers/user'
+import {loginUser} from '../reducers/user'
 import {useRouter} from 'next/router'
 
 
@@ -34,7 +31,7 @@ function LoginInput({
     }
 
     try {
-      const response = await fetch("http://localhost:3001/auth/login", {
+      const response = await fetch("https://fluxi-backdep.vercel.app/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: signEmail, password: signPassword }),
@@ -162,7 +159,7 @@ function RegisterInput({
       return;
     }
 
-    fetch("http://localhost:3001/auth/register", {
+    fetch("https://fluxi-backdep.vercel.app/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -333,7 +330,7 @@ function login() {
 			const token = localStorage.getItem("token");
 			if (!token) return
 			
-			const res = await fetch("http://localhost:3001/api/check-token", {
+			const res = await fetch("https://fluxi-backdep.vercel.app/api/check-token", {
 			headers: { Authorization: `Bearer ${token}`},});
 
 			// If token is invalid logout

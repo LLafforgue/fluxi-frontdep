@@ -55,7 +55,7 @@ function Customers() {
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
-        const responseCustomers = await apiFetch("http://localhost:3001/api/customers")
+        const responseCustomers = await apiFetch("https://fluxi-backdep.vercel.app/api/customers")
         if (!responseCustomers.result) {
           throw new Error("Failed to fetch clients");
         }
@@ -70,7 +70,7 @@ function Customers() {
 
     async function fetchTags() {
       try {
-        const responseTags = await apiFetch("http://localhost:3001/api/customers/tags")
+        const responseTags = await apiFetch("https://fluxi-backdep.vercel.app/api/customers/tags")
 
         if (!responseTags.result) {
           throw new Error("Failed to fetch tags");
@@ -92,7 +92,7 @@ function Customers() {
     const querySearch = input ? `search=${input}&` : "";
     const queryTag = tag ? `tag=${tag}&` : "";
     const queryOrder = order ? `sort=${order}&` : "";
-    const fetchUrl = `http://localhost:3001/api/customers?${querySearch}${queryTag}${queryOrder}`;
+    const fetchUrl = `https://fluxi-backdep.vercel.app/api/customers?${querySearch}${queryTag}${queryOrder}`;
 
     async function fetchCustomers() {
       try {

@@ -10,7 +10,7 @@ function ProductionTable(props) {
   useEffect(() => {
     const fetchProductions = async () => {
       try {
-        const data = await apiFetch("http://localhost:3001/api/productions");
+        const data = await apiFetch("https://fluxi-backdep.vercel.app/api/productions");
         
         if (data.result) {
           const sorted = data.productions.sort(
@@ -36,7 +36,7 @@ function ProductionTable(props) {
 
   const exportToCSV = async () => {
     try {
-      const data = await apiFetch("http://localhost:3001/api/productions");
+      const data = await apiFetch("https://fluxi-backdep.vercel.app/api/productions");
     if (!data.result || !data.productions || !data.productions.length === 0) {
       alert("Aucune donnée à exporter !");
       return;
