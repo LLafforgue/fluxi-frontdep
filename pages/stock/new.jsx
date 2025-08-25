@@ -469,14 +469,7 @@ function NewProduct() {
         method: "POST",
         body: JSON.stringify(newProduct),
       })
-      // const response = await fetch("https://fluxi-backdep.vercel.app/api/products", {
-      //   headers: {
-      //     Authorization: `Bearer ${localStorage.getItem("token")}`,
-      //     "content-type": "application/json"
-      //   },
-      //   method: "POST",
-      //   body: JSON.stringify(newProduct),
-      // })
+     
       
 
       if (!response.result) {
