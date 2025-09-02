@@ -23,7 +23,7 @@ export default function Protected(Component) {
 
         checkAuth()
 
-        }, [router]);
+        }, []);
 
     return <Component {...props} />;
   };
