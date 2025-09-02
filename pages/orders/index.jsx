@@ -248,7 +248,7 @@ function Orders() {
             </div>
           ) : (
             <SearchTable
-              items={filteredOrders}
+              items={filteredOrders||[{ erreur: 'Pas de commandes' }]}
               type='orders'
               token={token}
               refresh = {setRefresh}

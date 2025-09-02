@@ -142,7 +142,7 @@ function SearchTable({ items, type, refresh, itemsId, catToCheck, multipleSelect
 //4 - The table maker
 //4a - Header cells using #tableHeaders props
 const renderHeader = () =>
-  Object.keys(items[0]).map((header, index) => (
+  categories.map((header, index) => (
     <th
       key={index}
       className='bg-gray-100 text-gray-800 font-semibold text-[clamp(0.875rem,1.5vw,1rem)] px-4 py-2 cursor-pointer z-10 border border-gray-300 hover:bg-gray-200 transition'

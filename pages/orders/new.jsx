@@ -98,7 +98,7 @@ async  function getLastOrderFromClient (client){
           return console.error("Erreur lors de la récupération des produits:", error);  
       }
         
-      setLastOrder({...data.data[0], visible:data.result})
+        data.data[0]&&setLastOrder({...data.data[0], visible:data.result})
 
       }catch (error) {
         console.error("Erreur lors de la récupération des produits:", error);
