@@ -307,7 +307,7 @@ const itemId = (currentItem && itemsId) && itemsId.find((el)=>el.name===currentI
                 </div>
 
                 <div className={`text-sm ${(0>(newStock.stock + Number(newStock.quantity)*operator)) ? 'text-red-500' : 'text-gray-700'}`}>
-                  Nouvelle quantité : {newStock.stock + Number(newStock.quantity)*operator} {newStock.unity}
+                  Nouvelle quantité : {newStock.stock + (Number(newStock.quantity)||0)*operator} {newStock.unity}
                 </div>
                 <button
                   className='px-3 py-1 bg-emerald-500 text-white cursor-pointer rounded-md hover:bg-emerald-600 transition'
