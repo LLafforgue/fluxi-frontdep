@@ -1,6 +1,6 @@
 import "../styles/globals.css";
 import Head from "next/head";
-import { useState} from "react";
+import { useState, createContext, useContext } from "react";
 import { useRouter } from "next/router";
 import { Provider } from "react-redux";
 import user from "../reducers/user";
@@ -12,6 +12,11 @@ import storage from 'redux-persist/lib/storage';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import ids from "@/reducers/ids";
 
+const APIContext = createContext();
+
+export function useAPI() {
+  return useContext(APIContext);
+}
 
 const reducers = combineReducers({ user, ids });
 const persistConfig = { key: 'Fluxi', storage };
@@ -29,11 +34,12 @@ function App({ Component, pageProps }) {
   const showSidebar = !noSidebarRoutes.includes(router.pathname);
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
+  const API_Fetch = 'https://fluxi-backdep.vercel.app';
 
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
+        <APIContext.Provider value={API_Fetch}>
         <Head>
           <title>Fluxi</title>
           <link rel="icon" href="../image/favicon.svg" sizes="any" />
@@ -83,6 +89,7 @@ function App({ Component, pageProps }) {
             </main>
           </div>
         </div>
+        </APIContext.Provider>
       </PersistGate>
     </Provider>
   );

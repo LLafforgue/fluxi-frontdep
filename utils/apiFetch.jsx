@@ -7,7 +7,7 @@ const apiFetch = async (url, options = {}) => {
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
   };
 
-  const res = await fetch(url, {
+  const res = await fetch('https://fluxi-backdep.vercel.app'+url, {
     ...options,
     headers,
   });

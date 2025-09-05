@@ -12,6 +12,9 @@ import {
 import { Modal } from 'antd';
 import apiFetch from '@/utils/apiFetch';
 
+import { useAPI } from '../pages/_app';
+
+
 
 
 /** This component renders a searchable and sortable table for products or orders
@@ -28,6 +31,7 @@ import apiFetch from '@/utils/apiFetch';
 
 function SearchTable({ items, type, refresh, itemsId, catToCheck, multipleSelect, notificationProp, modalOn }) {
   //1 - state and categories
+
   const categories = items.length ? Object.keys(items[0]) : [];
 
   const [isModalVisible, setIsModalVisible] = useState(false);

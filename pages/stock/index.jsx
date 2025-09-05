@@ -10,8 +10,10 @@ import apiFetch from "@/utils/apiFetch";
 import Protected from "@/utils/Protected";
 import { notification } from "antd";
 import { addProductsIds } from "@/reducers/ids";
+import { useAPI } from '../_app';
 
 function Stock() {
+  const API_Fetch = useAPI();
   const [input, setInput] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([{ Erreur: "Aucun produit trouvé" }]);
   const [productsList, setProductsList] = useState([{ Erreur: "Aucun produit trouvé" }]);
@@ -49,7 +51,7 @@ function Stock() {
       
       setLoading(true);
       try {
-        const data = await apiFetch("https://fluxi-backdep.vercel.app/api/products");
+        const data = await apiFetch(`/api/products`);
 
         if (data.result) {
           const useData = data.data.map((product) => {
