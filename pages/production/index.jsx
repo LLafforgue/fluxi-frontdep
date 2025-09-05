@@ -21,17 +21,17 @@ function Production() {
     return `${year}-${month}-${day}T${hours}:${minutes}`;
   }
   
-
-  const [isPopupOpen, setIsPopupOpen] = useState(false); // État pour la popup
+  const [productions, setProductions] = useState([]);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [productName, setProductName] = useState([]); 
   const [selectProduct, setSelectProduct] = useState('');
   const [date, setDate] = useState(getDateTimeLocalString()); 
   const [quantity, setQuantity] = useState(0); 
   const [nlot, setNlot] = useState(''); 
   const [cost, setCost] = useState(0); 
-  const [receipe, setReceipe] = useState([]); // Ajout de l'état pour la recette
-  const [events, setEvents] = useState(); //ajout de prod sur calendar
-  const [updateTable, setUpdateTable] = useState(false); // État pour forcer la mise à jour de la table
+  const receipe = [];
+  const [events, setEvents] = useState(); //Add a production on the table
+  const [updateTable, setUpdateTable] = useState(false); // refresh table 
   const [chartData, setChartData] = useState([]);
 
 
@@ -45,7 +45,7 @@ function Production() {
       const data = await apiFetch("https://fluxi-backdep.vercel.app/api/productions");
 
       if (!data.result) {
-        console.error("Erreur fetch productions :", err);
+        console.log("Erreur fetch productions",data);
       }
 
       const formatted = data.productions.map((prod) => ({
@@ -55,7 +55,7 @@ function Production() {
         allDay: false,
       }));
 
-      setUpdateTable(!updateTable); // Met à jour l'état pour forcer la mise à jour de la table
+      setUpdateTable(!updateTable); // refresh the table
       setEvents(formatted);
     } catch (err) {
       console.error("Erreur fetch productions :", err);
@@ -145,11 +145,17 @@ function Production() {
 
     const fetchProductions = async () => {
       try {
-        const data = await apiFetch("https://fluxi-backdep.vercel.app/api/productions");
+        const response = await apiFetch("https://fluxi-backdep.vercel.app/api/productions");
 
+        if (response.result) {
+          const sorted = response.productions.sort(
+            (a, b) => new Date(b.date) - new Date(a.date)
+          );
+          setProductions(sorted.slice(0, 10));
+        }
         // Groupement par mois
-        const productions = data.productions || [];
-        const grouped = productions.reduce((acc, prod) => {
+        const data = response.productions || [];
+        const grouped = data.reduce((acc, prod) => {
           const date = new Date(prod.date || prod.createdAt);
           const month = date.toLocaleString("default", { month: "short" });
           acc[month] = (acc[month] || 0) + prod.quantity;
@@ -169,7 +175,7 @@ function Production() {
     };
 
     fetchProductions();
-  }, []); // Ajout de token et updateTable pour forcer la mise à jour
+  }, [updateTable]);
 
   
 
@@ -235,7 +241,7 @@ function Production() {
               </div>
             </div>
             <div className="overflow-y-auto   rounded-lg shadow p-4  h-80">
-              <ProductionTable updateTable={updateTable} />
+              <ProductionTable productions= {productions}/>
             </div>
           </div>
         </div>

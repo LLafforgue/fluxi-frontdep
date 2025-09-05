@@ -2,32 +2,33 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import apiFetch from "@/utils/apiFetch";
 
-function ProductionTable(props) {
+function ProductionTable({productions}) {
   const token = useSelector((state) => state.user.value.token);
-  const [productions, setProductions] = useState([]);
+  // const [productions, setProductions] = useState([]);
   const [filter, setFilter] = useState(""); // Filtre texte
 
-  useEffect(() => {
-    const fetchProductions = async () => {
-      try {
-        const data = await apiFetch("https://fluxi-backdep.vercel.app/api/productions");
+  // useEffect(() => {
+  //   const fetchProductions = async () => {
+  //     try {
+  //       const data = await apiFetch("https://fluxi-backdep.vercel.app/api/productions");
         
-        if (data.result) {
-          const sorted = data.productions.sort(
-            (a, b) => new Date(b.date) - new Date(a.date)
-          );
-          setProductions(sorted.slice(0, 10));
-        }
-      } catch (err) {
-        console.error("Erreur lors de la récupération des productions", err);
-      }
+  //       if (data.result) {
+  //         const sorted = data.productions.sort(
+  //           (a, b) => new Date(b.date) - new Date(a.date)
+  //         );
+  //         setProductions(sorted.slice(0, 10));
+  //       }
+  //     } catch (err) {
+  //       console.error("Erreur lors de la récupération des productions", err);
+  //     }
       
-    };
+  //   };
 
-    fetchProductions();
-  }, [token, props.updateTable]); // Ajout de props.updateTable pour forcer la mise à jour
+  //   fetchProductions();
+  // }, [token, updateTable])
 
   // Filtrage par produit ou lot
+  console.log(productions)
   const filteredProductions = productions.filter(
     (prod) =>
       prod.product?.toLowerCase().includes(filter.toLowerCase()) ||

@@ -8,6 +8,7 @@ import apiFetch from "@/utils/apiFetch";
 
 function Dashboard() {
   const [chartData, setChartData] = useState([]);
+  const [productions, setProductions] = useState([]);
 
   const [kpi, setKpi] = useState(null);
 
@@ -27,13 +28,18 @@ function Dashboard() {
     
   }, []);
 
-  // Charger et formater les données de production
+  // Load productions data
   useEffect(() => {
     const fetchProductions = async () => {
       try {
         const data = await apiFetch("https://fluxi-backdep.vercel.app/api/productions");
         const productions = data.productions || [];
-
+        if (data.result) {
+          const sorted = data.productions.sort(
+            (a, b) => new Date(b.date) - new Date(a.date)
+          );
+          setProductions(sorted.slice(0, 10));
+        }
         const grouped = productions.reduce((acc, prod) => {
           const date = new Date(prod.date || prod.createdAt);
           const month = date.toLocaleString("default", { month: "short" });
@@ -81,7 +87,7 @@ function Dashboard() {
             </p>
           </div>
           <div className="bg-white p-6 rounded-xl shadow hover:shadow-md transition">
-            <h3 className="text-sm font-medium text-gray-500">Nombre de commandes</h3>
+            <h3 className="text-sm font-medium text-gray-500">Nombre de commandes livrées</h3>
             <p className="mt-2 text-3xl font-bold text-[#19CB96]">
               {kpi?.totalOrders ?? 0}
             </p>
@@ -134,12 +140,12 @@ function Dashboard() {
           </div>
         </div>
 
-        {/* Table de production */}
+        {/* Production table */}
         <div className="bg-white rounded-2xl shadow p-6 hover:shadow-md transition">
       
         
           <div className="overflow-y-auto max-h-[400px]">
-            <ProductionTable />
+            <ProductionTable productions={productions} />
           </div>
         </div>
       </main>

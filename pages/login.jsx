@@ -37,7 +37,6 @@ function LoginInput({
         body: JSON.stringify({ email: signEmail, password: signPassword }),
       })
       const data = await response.json();
-      console.log(data)
 
       if (data.result) {
         const userRedux = {
@@ -50,15 +49,12 @@ function LoginInput({
 
         // Stocker le token dans le localStorage
         localStorage.setItem("token", data.data.token);
-        console.log(data.data.token)
         // Mettre à jour l'état de l'utilisateur dans Redux
         dispatch(loginUser(userRedux));
-        console.log('ok redux')
 
         // Rediriger vers le tableau de bord
         router.replace("/dashboard");
       } else {
-        console.log('pas ok 1')
         setLoginError("Email ou mot de passe incorrect.");
       }
     } catch (error) {
