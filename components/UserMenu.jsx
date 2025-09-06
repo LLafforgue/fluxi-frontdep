@@ -31,8 +31,6 @@ function UserMenu({ style, refresh }) {
         const [contentOrderAlert, setContentOrderAlert] = useState([])  
         //Stocks 
         const [contentStockAlert, setContentStockAlert] = useState([])  
-        // refresh
-        const [refreshAlert, setRefreshAlert] = useState(false)
         //notifications
         const [api, contextHolder] = notification.useNotification();
         //AlerteIndex
@@ -66,10 +64,9 @@ function UserMenu({ style, refresh }) {
 useEffect(()=>{
     const getProductAlert = async () =>{
     try{
-    const data = await apiFetch('https://fluxi-backdep.vercel.app/api/products/alert',{
-        method: 'GET',
-    })
-    if(data.result&&typeof(data.data)==='object'){
+    const data = await apiFetch('/api/products/alert')
+    
+    if(data&&data.result){
         setContentStockAlert(data.data.map((product)=>{
             const option = product.supplier&&'Contacter {product.supplier}'||'Faire un production';
             return{name:product.name, alert:'stock : '+ product.stock, option:option}
@@ -78,12 +75,8 @@ useEffect(()=>{
             message:'Produits en tension : ' + data.data.map((product)=>product.name).join(' ; '),
             type:'stock'
             });
-        }
+        };
         
-        if(data.result&&typeof(data.data)!=='object'){
-            setContentStockAlert([]);
-           return  
-        } 
     }catch(error){
         console.error('Erreur du serveur')
     };
@@ -91,7 +84,7 @@ useEffect(()=>{
 
     const getOrderAlert = async () =>{
     try{
-    const data = await apiFetch('https://fluxi-backdep.vercel.app/api/orders/alert',{
+    const data = await apiFetch('/api/orders/alert',{
         method: 'GET',
     })
     if(data.result&&typeof(data.data)==='object'){
@@ -115,7 +108,7 @@ useEffect(()=>{
     };
     getProductAlert();
     getOrderAlert();
-},[refreshAlert, refresh])
+},[refresh])
 
     //Badges
     const countStocksAlert = contentStockAlert.length

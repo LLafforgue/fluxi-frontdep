@@ -111,7 +111,7 @@ function ProductPage() {
     console.log(Fetchid)
     try {
       const response = await apiFetch(
-        `https://fluxi-backdep.vercel.app/api/products/${Fetchid}`
+        `/api/products/${Fetchid}`
       );
       if (!response.result) return;
       setProduct(response.data);
@@ -129,7 +129,7 @@ function ProductPage() {
     async function getProduct() {
       try {
         const response = await apiFetch(
-          `https://fluxi-backdep.vercel.app/api/products/${id}`
+          `/api/products/${id}`
         );
         if (!response.result) return;
         setProduct(response.data);

@@ -1,12 +1,14 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import {loginUser} from '../reducers/user'
 import {useRouter} from 'next/router'
 
+import { useAPI } from './_app';
 
 
 function LoginInput({
+  api,
   EMAIL_REGEX,
   signEmail,
   setSignEmail,
@@ -19,6 +21,7 @@ function LoginInput({
   dispatch,
   router
 }) {
+
   const userConnect = async () => {
     setLoginError("");
     if (!EMAIL_REGEX.test(signEmail)) {
@@ -31,7 +34,7 @@ function LoginInput({
     }
 
     try {
-      const response = await fetch("https://fluxi-backdep.vercel.app/auth/login", {
+      const response = await fetch(`${api}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: signEmail, password: signPassword }),
@@ -125,6 +128,7 @@ function LoginInput({
 
 
 function RegisterInput({
+  api,
   EMAIL_REGEX,
   signEmail,
   setSignEmail,
@@ -159,7 +163,7 @@ function RegisterInput({
       return;
     }
 
-    fetch("https://fluxi-backdep.vercel.app/auth/register", {
+    fetch(`${api}/auth/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -308,7 +312,7 @@ function RegisterInput({
 
 
 function login() {
-
+    const api = useAPI();
     const dispatch = useDispatch();
     const router = useRouter();
 
@@ -323,23 +327,30 @@ function login() {
     
 	const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-	useEffect(()=>{     
-			
-		async function checkAuth() {
-			const token = localStorage.getItem("token");
-			if (!token) return
-			
-			const res = await fetch("https://fluxi-backdep.vercel.app/api/check-token", {
-			headers: { Authorization: `Bearer ${token}`},});
+ useEffect(() => {
+  //Token check
+  async function checkAuth() {
+    const token = localStorage.getItem("token");
+    if (!token) return;
 
-			// If token is invalid logout
-			if (res.status == 401) {
-				router.replace("/logout");
-				return
-			}}
+    try {
+      const res = await fetch(`${api}/api/check-token`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
-		checkAuth();
-	},[])
+      if (res.ok) {
+        router.replace("/dashboard");
+      } else {
+        localStorage.removeItem("token");
+      }
+    } catch (error) {
+      console.error("Erreur de vérification du token :", error);
+      localStorage.removeItem("token");
+    }
+  }
+
+  checkAuth();
+}, []);
     
     return (
       <div className="flex flex-col lg:flex-row h-screen">
@@ -375,6 +386,7 @@ function login() {
               setLoginError={setLoginError}
               dispatch={dispatch}
               router={router}
+              api={api}
             />
           ) : (
             <RegisterInput
@@ -395,6 +407,7 @@ function login() {
               setFormErrors={setFormErrors}
               dispatch={dispatch}
               router={router}
+              api={api}
             />
           )}
         </div>

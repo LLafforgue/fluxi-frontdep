@@ -34,7 +34,9 @@ function App({ Component, pageProps }) {
   const showSidebar = !noSidebarRoutes.includes(router.pathname);
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const API_Fetch = 'https://fluxi-backdep.vercel.app';
+
+  // API URL
+  const API_Fetch = 'http://localhost:3001';
 
   return (
     <Provider store={store}>

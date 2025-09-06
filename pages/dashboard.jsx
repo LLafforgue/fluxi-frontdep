@@ -15,7 +15,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchKpi = async () => {
       try {
-    const data = await apiFetch("https://fluxi-backdep.vercel.app/api/orders/kpi")
+    const data = await apiFetch("/api/orders/kpi")
     setKpi(data);
     console.log(data);
       } catch (err) {
@@ -32,7 +32,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchProductions = async () => {
       try {
-        const data = await apiFetch("https://fluxi-backdep.vercel.app/api/productions");
+        const data = await apiFetch("/api/productions");
         const productions = data.productions || [];
         if (data.result) {
           const sorted = data.productions.sort(
@@ -153,4 +153,4 @@ function Dashboard() {
   );
 }
 
-export default Protected(Dashboard)
+export default Protected(Dashboard);

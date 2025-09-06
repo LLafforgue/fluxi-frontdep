@@ -1,29 +1,32 @@
 import { useRouter } from "next/router";
-import { useEffect } from "react";
-
+import { useEffect, useState } from "react";
 
 export default function Protected(Component) {
   return function AuthenticatedComponent(props) {
     const router = useRouter();
+    const api = 'http://localhost:3001';
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+      async function checkAuth() {
+        const token = localStorage.getItem("token");
+        const res = await fetch(`${api}/api/check-token`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
 
-        async function checkAuth(){
-        
-            const token = localStorage.getItem("token");
-            const res = await fetch("https://fluxi-backdep.vercel.app/api/check-token", {
-            headers: { Authorization: `Bearer ${token}` },
-            });
-
-            // If token is invalid
-            if (res.status == 401) {
-            router.replace("/logout");
-            }
+        if (res.status == 401) {
+          router.replace("/logout");
+        } else {
+          setLoading(false); 
         }
+      }
 
-        checkAuth()
+      checkAuth();
+    }, [router.pathname]);
 
-        }, []);
+    if (loading) {
+      return <p>Chargement...</p>; 
+    }
 
     return <Component {...props} />;
   };

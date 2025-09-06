@@ -32,7 +32,7 @@ function OrderDetail() {
   // Function to fetch product data based on id
   const getOrder = async (idRef) => {
     try {
-      const data = await apiFetch(`https://fluxi-backdep.vercel.app/api/orders/${idRef}`);
+      const data = await apiFetch(`/api/orders/${idRef}`);
 
       if(data.result){
         setOrder({...data.data, creationDate:setDate(new Date(data.data.creationDate)), deliveryDate:setDate(new Date(data.data.deliveryDate))})

@@ -53,7 +53,7 @@ function Orders() {
     setLoading(true)
     const fetchOrders = async () => {
       try {
-        const data = await apiFetch('https://fluxi-backdep.vercel.app/api/orders');
+        const data = await apiFetch('/api/orders');
 
         if (data.result) {
           const useData = data.data.map(order => {

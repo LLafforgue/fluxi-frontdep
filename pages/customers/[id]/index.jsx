@@ -19,8 +19,10 @@ import {
 }from '@fortawesome/free-regular-svg-icons'
 import { motion } from "framer-motion";
 import Protected from "@/utils/Protected";
+import useApi from "../../_app";
 
 function CustomerDetails() {
+  const api = useApi();
   const router = useRouter();
   const [id, setId] = useState(router.query.id);
   const [customer, setCustomer] = useState(null);
@@ -83,7 +85,7 @@ function CustomerDetails() {
   }
   const fetchCustomerDetails = (idCustomer) => {
     if (idCustomer) {
-      fetch(`https://fluxi-backdep.vercel.app/api/customers/${idCustomer}`, {
+      fetch(`${api}/api/customers/${idCustomer}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then((res) => res.json())
