@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 export default function Protected(Component) {
   return function AuthenticatedComponent(props) {
     const router = useRouter();
-    const api = 'http://localhost:3001';
+    const api = 'https://fluxi-backdep.vercel.app';
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
